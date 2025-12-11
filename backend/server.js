@@ -11,14 +11,28 @@ const app = express()
 
 // Middleware
 const allowedOrigins = [
-  "https://investoxpert.netlify.app/", 
-  "https://investoxpertadmin.netlify.app/login"   
+  "http://localhost:5173",  // Keep localhost for development
+  "http://localhost:5174",
+  "https://investoxpert.netlify.app",      // NO slash at the end
+  "https://investoxpertadmin.netlify.app"  // NO /login path
 ];
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        console.log("Blocked by CORS:", origin); // Helps debugging in Render logs
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 app.use(express.json())
 app.use(express.urlencoded({ limit: "50mb", extended: true }))
