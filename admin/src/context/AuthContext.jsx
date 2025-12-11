@@ -4,39 +4,54 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // 1. FIXED: Initialize 'user' from localStorage so it persists on refresh
+  // --- SAFER INITIALIZATION LOGIC ---
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("adminUser");
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      const savedUser = localStorage.getItem("adminUser");
+      // Check if data exists AND is not the string "undefined"
+      if (savedUser && savedUser !== "undefined") {
+        return JSON.parse(savedUser);
+      }
+      return null;
+    } catch (error) {
+      // If JSON is broken, clear it and return null (prevents crash)
+      console.error("Failed to parse user data:", error);
+      localStorage.removeItem("adminUser");
+      return null;
+    }
   });
 
-  const [token, setToken] = useState(() => localStorage.getItem("adminToken"));
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(() => {
+    const savedToken = localStorage.getItem("adminToken");
+    return (savedToken && savedToken !== "undefined") ? savedToken : null;
+  });
+  // ----------------------------------
 
+  const [loading, setLoading] = useState(true);
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      // Clean up headers if no token
+      delete axios.defaults.headers.common["Authorization"];
     }
     setLoading(false);
   }, [token]);
 
   const register = async (name, email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/register`, {
-        name,
-        email,
-        password,
-      });
-      setToken(response.data.token);
-      setUser(response.data.user);
+      const response = await axios.post(`${API_URL}/auth/register`, { name, email, password });
 
-      // 2. FIXED: Save both token AND user data
-      localStorage.setItem("adminToken", response.data.token);
-      localStorage.setItem("adminUser", JSON.stringify(response.data.user));
+      const { token: newToken, user: newUser } = response.data;
 
-      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+      setToken(newToken);
+      setUser(newUser);
+
+      localStorage.setItem("adminToken", newToken);
+      localStorage.setItem("adminUser", JSON.stringify(newUser));
+
       return response.data;
     } catch (error) {
       throw error.response?.data || error;
@@ -45,18 +60,16 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, {
-        email,
-        password,
-      });
-      setToken(response.data.token);
-      setUser(response.data.user);
+      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
 
-      // 3. FIXED: Save both token AND user data
-      localStorage.setItem("adminToken", response.data.token);
-      localStorage.setItem("adminUser", JSON.stringify(response.data.user));
+      const { token: newToken, user: newUser } = response.data;
 
-      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+      setToken(newToken);
+      setUser(newUser);
+
+      localStorage.setItem("adminToken", newToken);
+      localStorage.setItem("adminUser", JSON.stringify(newUser));
+
       return response.data;
     } catch (error) {
       throw error.response?.data || error;
@@ -66,11 +79,8 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setToken(null);
     setUser(null);
-
-    // 4. FIXED: Clear both from storage
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminUser");
-
     delete axios.defaults.headers.common["Authorization"];
   };
 
