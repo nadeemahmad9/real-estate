@@ -10,12 +10,16 @@ dotenv.config()
 const app = express()
 
 // Middleware
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL?.split(",") || "http://localhost:3000",
-    credentials: true,
-  }),
-)
+const allowedOrigins = [
+  "https://investoxpert.netlify.app/", 
+  "https://investoxpertadmin.netlify.app/login"   
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use(express.json())
 app.use(express.urlencoded({ limit: "50mb", extended: true }))
 
