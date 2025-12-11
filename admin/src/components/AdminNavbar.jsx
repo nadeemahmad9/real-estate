@@ -4,15 +4,30 @@ import { motion } from "framer-motion"
 
 const AdminNavbar = () => {
   const { user, logout } = useAuth()
+  const [scrolled, setScrolled] = useState(false);
+
   const navigate = useNavigate()
 
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   const handleLogout = () => {
     logout()
     navigate("/login")
   }
 
   return (
-    <nav className="bg-gray-900 text-white px-6 py-4 flex justify-between items-center shadow-lg">
+    <nav
+      className={`fixed w-full top-0 z-50 transition-all duration-300 font-sans ${scrolled
+        ? "bg-gray-900/95 backdrop-blur-md shadow-lg py-2"
+        : "bg-gray-900 py-4"
+        }`}
+    >
       <Link to="/dashboard" className="text-2xl font-bold">
         Admin <span className="text-red-600">Panel</span>
       </Link>
