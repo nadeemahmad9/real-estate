@@ -57,7 +57,7 @@ const PropertyDetail = () => {
   const activeConfig = property.configurations?.find(c => c.type === activeConfigTab);
 
   return (
-    <main className="bg-white font-sans text-gray-800">
+    <main className="bg-white font-sans text-gray-800 mt-20">
 
       {/* Sticky Header for Quick Navigation */}
       <div className="sticky top-0 z-20 bg-white shadow-sm border-b border-gray-200 hidden md:block">

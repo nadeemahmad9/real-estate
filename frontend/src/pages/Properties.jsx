@@ -1,6 +1,5 @@
 
 
-
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
@@ -9,6 +8,57 @@ import PropertyCard from "../components/PropertyCard"
 import Footer from "../components/Footer"
 import { Helmet } from "react-helmet"
 import { Filter, X } from "lucide-react"
+
+// --- FIX: Component Moved Outside ---
+const FilterContent = ({ filters, onFilterChange, onReset }) => (
+  <div className="space-y-4">
+    <div>
+      <label className="block text-xs font-bold uppercase text-gray-500 mb-1">City</label>
+      <input
+        type="text"
+        placeholder="Search city..."
+        value={filters.city || ""}
+        onChange={(e) => onFilterChange("city", e.target.value)}
+        className="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-red-600 bg-gray-50 focus:bg-white transition-colors"
+      />
+    </div>
+
+    <div>
+      <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Property Type</label>
+      <select
+        value={filters.propertyType || ""}
+        onChange={(e) => onFilterChange("propertyType", e.target.value)}
+        className="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-red-600 bg-gray-50 focus:bg-white transition-colors cursor-pointer"
+      >
+        <option value="">All Types</option>
+        <option>Residential</option>
+        <option>Commercial</option>
+        <option>Apartment</option>
+        <option>Villa</option>
+      </select>
+    </div>
+
+    <div>
+      <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Transaction Type</label>
+      <select
+        value={filters.transactionType || ""}
+        onChange={(e) => onFilterChange("transactionType", e.target.value)}
+        className="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-red-600 bg-gray-50 focus:bg-white transition-colors cursor-pointer"
+      >
+        <option value="">All</option>
+        <option>For Sale</option>
+        <option>For Rent</option>
+      </select>
+    </div>
+
+    <button
+      onClick={onReset}
+      className="w-full mt-4 bg-gray-900 text-white text-sm py-2 rounded hover:bg-gray-800 transition-colors"
+    >
+      Reset Filters
+    </button>
+  </div>
+);
 
 const Properties = () => {
   const location = useLocation()
@@ -27,67 +77,18 @@ const Properties = () => {
     }))
   }
 
+  const handleReset = () => {
+    setFilters({})
+    setShowMobileFilters(false)
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.05 }, // Faster stagger for smaller cards
+      transition: { staggerChildren: 0.05 },
     },
   }
-
-  // Common Filter Component to reuse for Mobile and Desktop
-  const FilterContent = () => (
-    <div className="space-y-4">
-      <div>
-        <label className="block text-xs font-bold uppercase text-gray-500 mb-1">City</label>
-        <input
-          type="text"
-          placeholder="Search city..."
-          value={filters.city || ""}
-          onChange={(e) => handleFilterChange("city", e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-red-600 bg-gray-50 focus:bg-white transition-colors"
-        />
-      </div>
-
-      <div>
-        <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Property Type</label>
-        <select
-          value={filters.propertyType || ""}
-          onChange={(e) => handleFilterChange("propertyType", e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-red-600 bg-gray-50 focus:bg-white transition-colors cursor-pointer"
-        >
-          <option value="">All Types</option>
-          <option>Residential</option>
-          <option>Commercial</option>
-          <option>Apartment</option>
-          <option>Villa</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Transaction Type</label>
-        <select
-          value={filters.transactionType || ""}
-          onChange={(e) => handleFilterChange("transactionType", e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:outline-none focus:border-red-600 bg-gray-50 focus:bg-white transition-colors cursor-pointer"
-        >
-          <option value="">All</option>
-          <option>For Sale</option>
-          <option>For Rent</option>
-        </select>
-      </div>
-
-      <button
-        onClick={() => {
-          setFilters({})
-          setShowMobileFilters(false)
-        }}
-        className="w-full mt-4 bg-gray-900 text-white text-sm py-2 rounded hover:bg-gray-800 transition-colors"
-      >
-        Reset Filters
-      </button>
-    </div>
-  )
 
   return (
     <>
@@ -96,7 +97,7 @@ const Properties = () => {
         <meta name="description" content="Browse thousands of properties for sale and rent in India." />
       </Helmet>
 
-      <div className="bg-gray-50 min-h-screen pt-4 pb-12">
+      <div className="bg-gray-50 min-h-screen pt-4 pb-12 mt-22">
         <div className="container-custom px-4 sm:px-6">
 
           {/* Header Section */}
@@ -124,7 +125,12 @@ const Properties = () => {
                   <Filter size={18} className="text-red-600" />
                   <h3 className="font-bold text-gray-800">Filter Properties</h3>
                 </div>
-                <FilterContent />
+                {/* Pass props to the external component */}
+                <FilterContent
+                  filters={filters}
+                  onFilterChange={handleFilterChange}
+                  onReset={handleReset}
+                />
               </div>
             </aside>
 
@@ -148,7 +154,12 @@ const Properties = () => {
                         <X size={20} />
                       </button>
                     </div>
-                    <FilterContent />
+                    {/* Pass props here as well */}
+                    <FilterContent
+                      filters={filters}
+                      onFilterChange={handleFilterChange}
+                      onReset={handleReset}
+                    />
                   </motion.div>
                 </>
               )}
@@ -175,16 +186,12 @@ const Properties = () => {
                   </div>
                   <h3 className="text-lg font-bold text-gray-900">No properties found</h3>
                   <p className="text-gray-500 mt-1">Try adjusting your filters or search criteria.</p>
-                  <button onClick={() => setFilters({})} className="mt-4 text-red-600 font-medium hover:underline">
+                  <button onClick={handleReset} className="mt-4 text-red-600 font-medium hover:underline">
                     Clear all filters
                   </button>
                 </div>
               ) : (
                 <motion.div
-                  // Updated Grid Classes for smaller cards:
-                  // sm:grid-cols-2 -> 2 cards on tablet
-                  // xl:grid-cols-3 -> 3 cards on desktop (Makes them smaller)
-                  // gap-4 -> tighter spacing
                   className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
                   variants={containerVariants}
                   initial="hidden"
