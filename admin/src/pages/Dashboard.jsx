@@ -34,7 +34,6 @@ const Dashboard = () => {
     fetchProperties();
   }, []);
 
-  // --- 2. DELETE PROPERTY ---
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this property?")) return;
 
@@ -42,7 +41,6 @@ const Dashboard = () => {
       await axios.delete(`${API_URL}/properties/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      // Remove from UI immediately
       setProperties(properties.filter(p => p._id !== id));
       alert("Property deleted successfully");
     } catch (err) {
@@ -57,7 +55,7 @@ const Dashboard = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-6 mt-25">
       <div className="max-w-7xl mx-auto">
 
         {/* HEADER SECTION */}
