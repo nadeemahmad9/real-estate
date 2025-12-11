@@ -12,7 +12,7 @@ const app = express()
 // Middleware
 const allowedOrigins = [
   "https://investoxpert.netlify.app/", 
-  "https://investoxpertadmin.netlify.app/"   
+  "https://investoxpertadmin.netlify.app/login"   
 ];
 
 app.use(cors({
