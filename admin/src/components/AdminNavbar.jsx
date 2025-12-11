@@ -26,9 +26,9 @@ const AdminNavbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleLogout}
-              className="bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition font-semibold text-sm"
+              className="bg-blue-600 px-4 py-2 rounded hover:bg-red-700 transition font-semibold text-sm"
             >
-              Logout
+              Login
             </motion.button>
           </>
         ) : (
@@ -37,9 +37,9 @@ const AdminNavbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-blue-600 px-6 py-2 rounded hover:bg-blue-700 transition font-semibold text-sm"
+              className="bg-red-600 px-6 py-2 rounded hover:bg-blue-700 transition font-semibold text-sm"
             >
-              Login
+              Logout
             </motion.button>
           </Link>
         )}
