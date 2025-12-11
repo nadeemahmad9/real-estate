@@ -165,7 +165,7 @@ const PropertyEdit = () => {
   if (loading) return <div className="flex h-screen items-center justify-center"><Loader className="animate-spin text-blue-600" /></div>;
 
   return (
-    <div className="bg-gray-100 min-h-screen p-6">
+    <div className="bg-gray-100 min-h-screen p-6 mt-20">
       <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
 
         {/* Header */}
