@@ -1,6 +1,8 @@
 import { useAuth } from "../context/AuthContext"
 import { useNavigate, Link } from "react-router-dom" // Added Link
 import { motion } from "framer-motion"
+import { useState } from "react"
+import { useEffect } from "react"
 
 const AdminNavbar = () => {
   const { user, logout } = useAuth()
