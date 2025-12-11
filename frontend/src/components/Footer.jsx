@@ -91,7 +91,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-200">
             © {new Date().getFullYear()} InvestoXpert. All rights reserved.
             Created By Nadeem
           </p>
