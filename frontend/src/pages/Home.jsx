@@ -6,6 +6,7 @@ import Testimonials from "../components/Testimonials"
 import Footer from "../components/Footer"
 import Assistant from "../components/Assistant"
 import Links from "../components/Links"
+import Blog from "./Blog"
 
 const Home = () => {
   return (
@@ -30,6 +31,7 @@ const Home = () => {
       <TrendingProjects />
       <Assistant />
       <Testimonials />
+      <Blog />
       <Links />
       <Footer />
     </>

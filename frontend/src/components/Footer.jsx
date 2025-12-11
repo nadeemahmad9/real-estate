@@ -7,27 +7,22 @@ import {
 
 const Footer = () => {
   return (
-    // REMOVED: mt-16, border-t, and reduced pt-16 to pt-8
     <footer className="bg-gray-900 text-gray-300 pb-8 pt-8 font-sans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Separator Line (Optional, visual break between Links and Footer content) */}
         <div className="border-t border-gray-800 mb-12"></div>
 
-        {/* --- MAIN FOOTER CONTENT --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
-          {/* Column 1: Brand & Social */}
           <div className="space-y-6">
             <div className="w-40">
               <img
                 src="https://www.investoxpert.com/_next/image?url=%2FIX-white-logo.png&w=384&q=75"
                 alt="InvestoXpert"
-                className="w-full h-auto object-contain hidden sm:block"
+                className="w-full h-auto object-contain "
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
               <h2 className="text-2xl font-bold text-white sm:hidden">
-                Investo<span className="text-red-600">Xpert</span>
               </h2>
             </div>
 
@@ -77,7 +72,7 @@ const Footer = () => {
             <FooterHeading title="Quick Links" />
             <ul className="space-y-2">
               <FooterLink to="/" text="Home" />
-              <FooterLink to="/careers" text="Careers" />
+              <FooterLink to="/properties" text="Properties" />
               <FooterLink to="/about" text="About Us" />
               <FooterLink to="/contact" text="Contact Us" />
             </ul>
@@ -87,15 +82,14 @@ const Footer = () => {
           <div>
             <FooterHeading title="Resources" />
             <ul className="space-y-2">
-              <FooterLink to="/privacy-policy" text="Privacy Policy" />
-              <FooterLink to="/terms-and-conditions" text="Terms & Conditions" />
-              <FooterLink to="/blog" text="Blog" />
+              <FooterLink to="/" text="Privacy Policy" />
+              <FooterLink to="/" text="Terms & Conditions" />
+              <FooterLink to="/" text="Blog" />
             </ul>
           </div>
 
         </div>
 
-        {/* --- COPYRIGHT --- */}
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-sm text-gray-500">
             © {new Date().getFullYear()} InvestoXpert. All rights reserved.
@@ -106,7 +100,6 @@ const Footer = () => {
   );
 };
 
-// --- SUB COMPONENTS ---
 
 const SocialIcon = ({ Icon, href }) => (
   <a
