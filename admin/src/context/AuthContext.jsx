@@ -60,18 +60,36 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        email,
+        password,
+      });
 
-      const { token: newToken, user: newUser } = response.data;
+      console.log("LOGIN API RESPONSE:", response.data);
 
-      setToken(newToken);
-      setUser(newUser);
+      const token = response.data.token;
 
-      localStorage.setItem("adminToken", newToken);
-      localStorage.setItem("adminUser", JSON.stringify(newUser));
+      // --- THE FIX IS HERE ---
+      // Look for 'user' OR 'admin' in the response
+      const userData = response.data.user || response.data.admin || response.data.data?.user;
+
+      if (!userData) {
+        console.error("User data missing in response!");
+        alert("Login successful but user data missing.");
+        return;
+      }
+
+      setToken(token);
+      setUser(userData);
+
+      localStorage.setItem("adminToken", token);
+      localStorage.setItem("adminUser", JSON.stringify(userData));
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       return response.data;
     } catch (error) {
+      console.error("Login Error:", error);
       throw error.response?.data || error;
     }
   };
