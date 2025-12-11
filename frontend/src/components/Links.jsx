@@ -6,34 +6,34 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 const Links = () => {
     // Data Definitions
     const realEstateLinks = [
-        { name: "Real Estate in Noida", url: "/real-estate-in-noida" },
-        { name: "Real Estate in Pune", url: "/real-estate-in-pune" },
-        { name: "Real Estate in Gurugram", url: "/real-estate-in-gurugram" },
-        { name: "Real Estate in Mumbai", url: "/real-estate-in-mumbai" },
-        { name: "Real Estate in Bangalore", url: "/real-estate-in-bangalore" },
-        { name: "Real Estate in Hyderabad", url: "/real-estate-in-hyderabad" },
-        { name: "Real Estate in Chennai", url: "/real-estate-in-chennai" },
-        { name: "Real Estate in Kolkata", url: "/real-estate-in-kolkata" },
+        { name: "Real Estate in Noida", url: "/properties" },
+        { name: "Real Estate in Pune", url: "/properties" },
+        { name: "Real Estate in Gurugram", url: "/properties" },
+        { name: "Real Estate in Mumbai", url: "/properties" },
+        { name: "Real Estate in Bangalore", url: "/properties" },
+        { name: "Real Estate in Hyderabad", url: "/properties" },
+        { name: "Real Estate in Chennai", url: "/properties" },
+        { name: "Real Estate in Kolkata", url: "/properties" },
     ];
 
     const propertyLinks = [
-        { name: "Property in Noida", url: "/property-in-noida" },
-        { name: "Property in Pune", url: "/property-in-pune" },
-        { name: "Property in Gurugram", url: "/property-in-gurugram" },
-        { name: "Property in Mumbai", url: "/property-in-mumbai" },
-        { name: "Property in Bangalore", url: "/property-in-bangalore" },
-        { name: "Property in Delhi", url: "/property-in-delhi" },
-        { name: "Property in Goa", url: "/property-in-goa" },
+        { name: "Property in Noida", url: "/properties" },
+        { name: "Property in Pune", url: "/properties" },
+        { name: "Property in Gurugram", url: "/properties" },
+        { name: "Property in Mumbai", url: "/properties" },
+        { name: "Property in Bangalore", url: "/properties" },
+        { name: "Property in Delhi", url: "/properties" },
+        { name: "Property in Goa", url: "/properties" },
     ];
 
     const developerLinks = [
-        { name: "Godrej Properties", url: "/godrej-properties" },
-        { name: "DLF Developer", url: "/dlf-developer" },
-        { name: "Prestige Group", url: "/prestige-group" },
-        { name: "Sobha Developers", url: "/sobha-developers-ltd" },
-        { name: "Tata Housing", url: "/tata-housing-group" },
-        { name: "Mahindra Lifespaces", url: "/mahindra-developers" },
-        { name: "M3M India", url: "/m3m-india" },
+        { name: "Godrej Properties", url: "/properties" },
+        { name: "DLF Developer", url: "/properties" },
+        { name: "Prestige Group", url: "/properties" },
+        { name: "Sobha Developers", url: "/properties" },
+        { name: "Tata Housing", url: "/properties" },
+        { name: "Mahindra Lifespaces", url: "/properties" },
+        { name: "M3M India", url: "/properties" },
     ];
 
     return (
@@ -60,7 +60,7 @@ const Links = () => {
 // --- SUB COMPONENT (Handles the Toggle Logic) ---
 const LinkSection = ({ title, links }) => {
     const [showAll, setShowAll] = useState(false);
-    const initialCount = 5; // How many links to show initially
+    const initialCount = 5;
 
     const displayedLinks = showAll ? links : links.slice(0, initialCount);
 
