@@ -9,7 +9,6 @@ import Footer from "../components/Footer"
 import { Helmet } from "react-helmet"
 import { Filter, X } from "lucide-react"
 
-// --- FIX: Component Moved Outside ---
 const FilterContent = ({ filters, onFilterChange, onReset }) => (
   <div className="space-y-4">
     <div>
@@ -107,7 +106,6 @@ const Properties = () => {
               <p className="text-sm text-gray-500 mt-1">Found {properties.length} listings</p>
             </div>
 
-            {/* Mobile Filter Toggle Button */}
             <button
               onClick={() => setShowMobileFilters(true)}
               className="lg:hidden flex items-center justify-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50"

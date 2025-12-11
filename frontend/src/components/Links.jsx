@@ -73,7 +73,7 @@ const LinkSection = ({ title, links }) => {
             </h5>
 
             {/* Links List */}
-            <div className="flex flex-col space-y-4 flex-grow">
+            <div className="flex flex-col space-y-4 grow">
                 {displayedLinks.map((link, idx) => (
                     <Link
                         key={idx}

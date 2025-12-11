@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react"; // Install: npm install lucide-react
+import { Quote } from "lucide-react";
 
 const Testimonials = () => {
   const testimonials = [
@@ -87,7 +87,7 @@ const Testimonials = () => {
               {/* Profile Header */}
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative">
-                  <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-r from-red-500 to-red-600">
+                  <div className="w-14 h-14 rounded-full p-0.5 bg-linear-to-r from-red-500 to-red-600">
                     <img
                       src={testimonial.image || "/placeholder.svg"}
                       alt={testimonial.name}
@@ -115,7 +115,7 @@ const Testimonials = () => {
               </div>
 
               {/* Testimonial Text */}
-              <p className="text-gray-600 text-sm leading-relaxed italic flex-grow">
+              <p className="text-gray-600 text-sm leading-relaxed italic grow">
                 "{testimonial.testimonial}"
               </p>
             </motion.div>

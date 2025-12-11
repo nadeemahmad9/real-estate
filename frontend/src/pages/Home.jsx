@@ -24,7 +24,7 @@ const Home = () => {
         <meta property="og:title" content="InvestoXpert - Find Your Dream Property in India" />
         <meta property="og:description" content="Discover your dream property across major Indian cities" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://investoxpert.com" />
+        <link rel="canonical" href="https://investoxpert.netlify.app/" />
       </Helmet>
       <Hero />
       <PopularCities />

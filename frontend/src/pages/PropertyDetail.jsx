@@ -130,7 +130,6 @@ const PropertyDetail = () => {
 
             {/* 1. ABOUT PROPERTY (Fixed) */}
             <AccordionItem title="About" id="about" isOpen={openSections.about} onClick={() => toggleSection("about")}>
-              {/* Access property.about.description safely */}
               <div className="text-gray-600 leading-relaxed whitespace-pre-line">
                 {property.about?.description || property.description || "No description available."}
               </div>
@@ -186,11 +185,6 @@ const PropertyDetail = () => {
                 <p className="text-gray-500 italic">No configurations available.</p>
               )}
             </AccordionItem>
-
-            {/* 3. AMENITIES (Using Component) */}
-            {/* <AccordionItem title="Amenities" id="amenities" isOpen={openSections.amenities} onClick={() => toggleSection("amenities")}>
-              <AmenitiesSection propertyAmenities={property.amenities || []} />
-            </AccordionItem> */}
 
             {/* 4. LOCATION */}
             <AccordionItem title="Location" id="locality" isOpen={openSections.locality} onClick={() => toggleSection("locality")}>

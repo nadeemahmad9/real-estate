@@ -4,17 +4,16 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // --- SAFER INITIALIZATION LOGIC ---
   const [user, setUser] = useState(() => {
     try {
       const savedUser = localStorage.getItem("adminUser");
-      // Check if data exists AND is not the string "undefined"
+
       if (savedUser && savedUser !== "undefined") {
         return JSON.parse(savedUser);
       }
       return null;
     } catch (error) {
-      // If JSON is broken, clear it and return null (prevents crash)
+
       console.error("Failed to parse user data:", error);
       localStorage.removeItem("adminUser");
       return null;
@@ -25,7 +24,6 @@ export const AuthProvider = ({ children }) => {
     const savedToken = localStorage.getItem("adminToken");
     return (savedToken && savedToken !== "undefined") ? savedToken : null;
   });
-  // ----------------------------------
 
   const [loading, setLoading] = useState(true);
   const API_URL = import.meta.env.VITE_API_URL;
@@ -69,8 +67,7 @@ export const AuthProvider = ({ children }) => {
 
       const token = response.data.token;
 
-      // --- THE FIX IS HERE ---
-      // Look for 'user' OR 'admin' in the response
+
       const userData = response.data.user || response.data.admin || response.data.data?.user;
 
       if (!userData) {
